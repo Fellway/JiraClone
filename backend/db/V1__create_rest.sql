@@ -1,9 +1,28 @@
-CREATE TABLE IF NOT EXISTS lists (
+CREATE TABLE IF NOT EXISTS tables (
 	id int GENERATED ALWAYS AS IDENTITY,
 	name varchar(60) NOT NULL UNIQUE,
-	card_id int NOT NULL,
-	username_id int NOT NULL,
 	PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS columns (
+    id int GENERATED ALWAYS AS IDENTITY,
+    name varchar(60) NOT NULL,
+    table_id int NOT NULL,
+    priority int NOT NULL,
+    UNIQUE (table_id, priority),
+	PRIMARY KEY (id),
+	CONSTRAINT fk_table_id FOREIGN KEY (table_id) REFERENCES tables (id)
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+  id int GENERATED ALWAYS AS IDENTITY,
+  name varchar(500) NOT NULL,
+  description VARCHAR(60) NOT NULL,
+  createdBy int NOT NULL,
+  column_id int NOT NULL,
+  PRIMARY KEY (id),
+  CONSTRAINT fk_column_id FOREIGN KEY (column_id) REFERENCES columns (id),
+  CONSTRAINT fk_createdBy FOREIGN KEY (createdby) REFERENCES users (id)
 );
 
 CREATE TABLE IF NOT EXISTS cards (
@@ -15,19 +34,7 @@ CREATE TABLE IF NOT EXISTS cards (
 
 CREATE TABLE IF NOT EXISTS users (
 	id int GENERATED ALWAYS AS IDENTITY,
-	name varchar(60) NOT NULL UNIQUE,
-	card_id int NOT NULL,
-	list_id int NOT NULL,
+	username varchar(60) NOT NULL UNIQUE,
+	password varchar(120) NOT NULL,
 	PRIMARY KEY (id)
 );
-
-ALTER TABLE lists
-	ADD CONSTRAINT fk_l_card FOREIGN KEY (card_id) REFERENCES cards(id),
-	ADD CONSTRAINT fk_l_username FOREIGN KEY (username_id) REFERENCES users(id);
-
-ALTER TABLE cards
-	ADD CONSTRAINT fk_c_username FOREIGN KEY (username_id) REFERENCES users(id);
-	
-ALTER TABLE users
-	ADD CONSTRAINT fk_u_card FOREIGN KEY (card_id) REFERENCES cards(id),
-	ADD CONSTRAINT fk_u_list FOREIGN KEY (list_id) REFERENCES lists(id);

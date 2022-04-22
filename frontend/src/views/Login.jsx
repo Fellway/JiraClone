@@ -1,105 +1,118 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import loginUser from '../services/LoginService';
 
 const Wrapper = styled.div`
-    height: 100vh;
-    width: 100vw;
-    background-color: #ffa726;
+  height: 100vh;
+  width: 100vw;
+  background-color: #ffa726;
 `
 
 const LoginModal = styled.div`
-    position: fixed;
-    width: 450px;
-    background-color: #e5e5e5;
-    padding: 100px 50px;
+  position: fixed;
+  width: 350px;
+  background-color: #e5e5e5;
+  padding: 100px 50px;
 
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 20px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 20px;
 `
 
 const LoginHeader = styled.div`
-    text-align: center;
-    font-size: 2rem;
-    width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  width: 100%;
 `
 
 const LoginFormWrapper = styled.div`
-    width: 100%;
-    padding-top: 50px;
+  width: 100%;
+  padding-top: 50px;
 `
 
 const Label = styled.div`
-    font-size: 1.2rem;
+  font-size: 1.2rem;
 `
 
 const LoginHeaderSubtext = styled.div`
-    font-size: 1rem;
-    text-align: center;
-    padding: 20px;
+  font-size: 1rem;
+  text-align: center;
+  padding: 20px;
 `
 
 const Input = styled.input`
-    display: block;
-    width: 100%;
-    height: 50px;
-    margin: 20px 0;
-    border: none;
-    background-color: #e5e5e5;
+  display: block;
+  width: 100%;
+  height: 50px;
+  margin: 20px 0;
+  background-color: #e5e5e5;
 
-    border-radius: 10px;
-    border-color: #ffa726;
-    border-style: solid;
-    border-width: 1px;
+  border-radius: 10px;
+  border-color: #F57C00;
+  border-style: solid;
+  border-width: 1px;
 `
 
 const ButtonWrapper = styled.div`
-    text-align:center;
-    margin: 50px auto;
+  text-align: center;
+  margin: 50px auto;
 `
 
 const Button = styled.button`
-    height: 50px;
-    width: 400px;
-    background-color: #ffa726;
-    border: 0;
-    font-size: 1.1rem;
+  height: 50px;
+  width: 80%;
+  background-color: #F57C00;
+  border-radius: 20px;
+  border-style: none;
+  font-size: 1.1rem;
 
-    &:hover {
-        cursor: pointer;
-    }
+  &:hover {
+    cursor: pointer;
+  }
 `
 
-const Login = () => (
+export default function Login({setToken}) {
+  const [username, setUserName] = useState();
+  const [password, setPassword] = useState();
+  
+  const handleSubmit = async e => {
+    e.preventDefault();
+    const token = await loginUser({
+      username,
+      password
+    });
+    setToken(token);
+  }
+  return (
     <Wrapper>
-        <LoginModal>
-            <LoginHeader>
-                Welcome
-            </LoginHeader>
-            <LoginHeaderSubtext>
-                Log in to Codetris to continue.
-            </LoginHeaderSubtext>
-            <LoginFormWrapper>
-                <Label>
-                    Login:
-                </Label>
-                <Input>
-                </Input>
-                <Label>
-                    Password:
-                </Label>
-                <Input type="password">
-                </Input>
-                <ButtonWrapper>
-                    <Button>
-                        Continue
-                    </Button>
-                </ButtonWrapper>
-
-            </LoginFormWrapper>
-        </LoginModal>
+      <LoginModal>
+        <LoginHeader>
+          Welcome
+        </LoginHeader>
+        <LoginHeaderSubtext>
+          Log in to Codetris to continue.
+        </LoginHeaderSubtext>
+        <LoginFormWrapper>
+          <form onSubmit={handleSubmit}>
+            <Label>
+              Login:
+            </Label>
+            <Input type="text" onChange={e => setUserName(e.target.value)}>
+            </Input>
+            <Label>
+              Password:
+            </Label>
+            <Input type="password" onChange={e => setPassword(e.target.value)}>
+            </Input>
+            <ButtonWrapper>
+              <Button>
+                Continue
+              </Button>
+            </ButtonWrapper>
+          </form>
+        </LoginFormWrapper>
+      </LoginModal>
     </Wrapper>
-)
-
-export default Login;
+  )
+}
