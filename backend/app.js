@@ -55,7 +55,7 @@ app.post('/api/tasks', function (req, res) {
   const columnId = req.body.columnId;
   
   client.query(`INSERT INTO public.tasks (name, description, createdby, column_id)
-                VALUES ('${title}', '${description}', '4', ${columnId});`)
+                VALUES ('${title}', '${description}', '1', ${columnId});`)
   
   res.send({
     'title': title,

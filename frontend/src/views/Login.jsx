@@ -18,6 +18,7 @@ const LoginModal = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 20px;
+  box-shadow: 8px 8px 24px -5px rgba(66, 68, 90, 1);
 `
 
 const LoginHeader = styled.div`
@@ -62,7 +63,7 @@ const ButtonWrapper = styled.div`
 const Button = styled.button`
   height: 50px;
   width: 80%;
-  background-color: #F57C00;
+  background-color: #ffa726;
   border-radius: 20px;
   border-style: none;
   font-size: 1.1rem;

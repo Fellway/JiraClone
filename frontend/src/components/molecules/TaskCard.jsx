@@ -1,5 +1,5 @@
-import styled from "styled-components";
 import { Component } from "react";
+import styled from "styled-components";
 
 const CardWrapper = styled.div`
   text-align: left;
@@ -49,7 +49,8 @@ export default class TaskCard extends Component {
   render() {
     const task = this.props.children;
     return(
-      <CardWrapper>
+      
+      <CardWrapper onClick={() => this.props.onClick(task)}>
         <CardId>
           JIRA-{task.id}
         </CardId>

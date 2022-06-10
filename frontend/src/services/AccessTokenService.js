@@ -12,6 +12,7 @@ export default function useToken() {
   const saveToken = userToken => {
     sessionStorage.setItem('access_token', JSON.stringify(userToken));
     setToken(userToken.accessToken);
+    window.location.reload(false);
   };
   
   return {

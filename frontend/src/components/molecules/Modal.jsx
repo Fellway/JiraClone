@@ -81,18 +81,20 @@ const InputWrapper = styled.div`
 function Modal(props) {
   const [title, setTitle] = useState();
   const [description, setDescription] = useState();
-  
-  const handleSubmit = async e => {
-    e.preventDefault();
+  const createTaskAndRefreshTable = () => {
     const columnId = props.columnId
-    await createTask({
+    createTask({
       title,
       description,
       columnId
     });
-    props.refreshTable();
+    window.location.reload(false);
   }
-  
+  const handleSubmit = async e => {
+    e.preventDefault();
+    await createTaskAndRefreshTable();
+  }
+
   return (
     <>
       <ModalWrapper>
@@ -115,7 +117,7 @@ function Modal(props) {
               <Input type="text" onChange={e => setDescription(e.target.value)}>
               </Input>
             </InputWrapper>
-            
+
             <ButtonWrapper>
               <Button>
                 Create task

@@ -8,6 +8,12 @@ const TableWrapper = styled.div`
   height: fit-content;
 `
 
+const Space = styled.div`
+  width: 100%;
+  height: 80px;
+  background-color: white;
+`
+
 export default class TableList extends Component {
   
   constructor(props, context) {
@@ -39,8 +45,11 @@ export default class TableList extends Component {
       <TableWrapper>
         {tables.map(table => {
           return (
-            <Table refreshTable={this.renderTables}>{table}</Table>)
-        })}
+            <div>
+              <Table openTaskDetails={this.props.openTaskDetails} refreshTable={this.renderTables}>{table}</Table>
+              <Space/>
+            </div>
+        )})}
       </TableWrapper>
     )
   }

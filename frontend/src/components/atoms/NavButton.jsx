@@ -43,8 +43,8 @@ const IconWrapper = styled.div`
   }
 `;
 
-const NavButton = ({isActive, Icon, color}) => (
-  <Wrapper isActive={isActive} color={color}>
+const NavButton = ({isActive, Icon, color, onClick}) => (
+  <Wrapper isActive={isActive} color={color} onClick={onClick}>
     <IconWrapper>
       {isActive ? <Icon color={color}/> : <Icon color={"white"}> </Icon>}
     </IconWrapper>

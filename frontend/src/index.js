@@ -1,13 +1,17 @@
 import React from 'react';
 import './index.css';
 import App from './App';
+import {HTML5Backend} from 'react-dnd-html5-backend';
 import reportWebVitals from './reportWebVitals';
 import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
+import { DndProvider } from 'react-dnd';
 
 render(
   <BrowserRouter>
-    <App />
+    <DndProvider backend={HTML5Backend}>
+      <App />
+    </DndProvider>
   </BrowserRouter>,
   document.getElementById('root')
 );
