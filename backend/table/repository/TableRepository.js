@@ -5,7 +5,7 @@ async function getAllTables() {
 }
 
 async function getColumnsByTableId(id) {
-  return (await client.query(`SELECT * FROM public.columns WHERE table_id = '${id}'`)).rows
+  return (await client.query(`SELECT * FROM public.columns WHERE table_id = '${id}' ORDER BY priority asc`)).rows
 }
 
 async function getTasksByColumnId(id) {

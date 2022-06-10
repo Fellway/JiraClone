@@ -9,6 +9,7 @@ const cookieParser = require("cookie-parser");
 const {generateToken, validateToken} = require('./JWT')
 const {getUserByUsername, addUser} = require('./user/repository/UserRepository')
 const {fetchTablesWithColumns} = require('./table/service/TableService')
+const {addNewColumn} = require('./column/service/ColumnService')
 
 var cors = require('cors');
 const {path} = require("ramda");
@@ -62,6 +63,16 @@ app.post('/api/tasks', function (req, res) {
     'description': description
   });
 });
+
+app.post('/api/columns', function(req, res){
+  const title = req.body.title;
+  const order = req.body.order;
+  const tableId = req.body.tableId;
+  
+  addNewColumn(tableId, order, title).then(result => {
+    res.send(result);
+  });
+})
 
 app.post("/api/register", (req, res) => {
   const {username, password} = req.body;
