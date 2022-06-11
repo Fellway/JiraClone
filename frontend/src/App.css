@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+[type="text"], [type="password"], textarea {
+   background-color: transparent !important;
+ }

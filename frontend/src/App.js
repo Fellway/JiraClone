@@ -1,8 +1,6 @@
 import './App.css';
 import React from 'react';
 import useToken from './services/AccessTokenService';
-import getCookie from './services/CookieService';
-import { Route, Routes } from 'react-router-dom'
 import Login from "./views/Login";
 import Dashboard from "./views/Dashboard";
 

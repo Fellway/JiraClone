@@ -42,6 +42,33 @@ const ColumnHeader = styled.div`
   padding: 22px;
 `
 
+const AddNewColumn = styled.div`
+  width: 150px;
+`
+
+const Placeholder = styled.div`
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  transform: translate(-50%, -50%);
+`
+
+const PlaceholderText = styled.div`
+  font-size: 15px;
+  margin-top: 20px;
+  text-align: center;
+`
+
+const PlaceholderSign = styled.div`
+  width: 100px;
+  height: 100px;
+  line-height: 75px;
+  font-size: 100px;
+  border: 3px dashed;
+  border-radius: 50%;
+  text-align: center;
+`
+
 export default class Table extends Component {
 
   openDetails() {
@@ -50,15 +77,17 @@ export default class Table extends Component {
     }))
   }
 
-  openModal() {
+  openModal(type) {
     this.setState({
-      isModalOpen: true
+      isModalOpen: true,
+      type: type
     })
   }
 
   closeModal() {
     this.setState({
-      isModalOpen: false
+      isModalOpen: false,
+      type: ''
     })
   }
 
@@ -77,9 +106,10 @@ export default class Table extends Component {
 
   render() {
     const table = this.state.Table;
+    console.log(table)
     return (
       <TableWrapper>
-        {this.state.isModalOpen && <Modal columnId={table.columns[0].id} onClose={() => this.closeModal()}> </Modal>}
+        {this.state.isModalOpen && <Modal columnId={table.columns[0].id} onClose={() => this.closeModal()} type={this.state.type} tableSize={table.columns.length} tableId={table.id}> </Modal>}
         <TableHeader onClick={this.openDetails}>{table.name}<SprintGoal>Testowy sprint goal</SprintGoal></TableHeader>
         {this.state.isOpen && <TableDetails>{table.columns.map(column =>
           <Column key={column.id}>
@@ -95,8 +125,20 @@ export default class Table extends Component {
             </TaskContainer>
           </Column>
         )}
-          <RoundButton onClick={this.openModal}>
-
+          <Column onClick={() => this.openModal('column')}>
+            <AddNewColumn>
+              <Placeholder>
+                <PlaceholderSign>
+                  +
+                </PlaceholderSign>
+                
+                <PlaceholderText>
+                  Add new column
+                </PlaceholderText>
+              </Placeholder>
+            </AddNewColumn>
+          </Column>
+          <RoundButton onClick={() => this.openModal('card')}>
           </RoundButton>
         </TableDetails>}
       </TableWrapper>
